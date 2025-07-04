@@ -6,6 +6,23 @@ type NoteDetailsProps = {
 	params: Promise<{ id: string }>;
 };
 
+export async function generateMetadata({ params }: NoteDetailsProps) {
+	const { id } = await params;
+	const parsedId = Number(id);
+	const note = await fetchNoteById(parsedId);
+
+	return {
+		title: note.title,
+		description: note.content.slice(0, 100),
+		openGraph: {
+			title: note.title,
+			description: note.content.slice(0, 100),
+			url: `https://07-routing-nextjs-bice.vercel.app/notes/${id}`,
+			images: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+		},
+	};
+}
+
 async function NoteDetails({ params }: NoteDetailsProps) {
 	const queryClient = new QueryClient();
 

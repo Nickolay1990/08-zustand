@@ -7,8 +7,24 @@ type NotesProps = {
 	params: Promise<{ slug: string[] }>;
 };
 
+export async function generateMetadata({ params }: NotesProps) {
+	const { slug } = await params;
+
+	return {
+		title: slug[0] === 'all' ? 'All notes' : slug[0],
+		description: `This page contains notes from the category ${slug[0] === 'all' ? 'All notes' : slug[0]}`,
+		openGraph: {
+			title: slug[0] === 'all' ? 'All notes' : slug[0],
+			description: `This page contains notes from the category ${slug[0] === 'all' ? 'All notes' : slug[0]}`,
+			url: `https://07-routing-nextjs-bice.vercel.app/notes/filter/${slug[0]}`,
+			images: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+		},
+	};
+}
+
 export default async function Notes({ params }: NotesProps) {
 	const { slug } = await params;
+
 	const queryClient = new QueryClient();
 	const initialQuery: string = '';
 	const initialPage: number = 1;
