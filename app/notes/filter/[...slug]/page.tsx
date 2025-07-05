@@ -18,7 +18,14 @@ export async function generateMetadata({ params }: NotesProps): Promise<Metadata
 			title: slug[0] === 'all' ? 'All notes' : slug[0],
 			description: `This page contains notes from the category ${slug[0] === 'all' ? 'All notes' : slug[0]}`,
 			url: `https://08-zustand-beige.vercel.app/notes/filter/${slug[0]}`,
-			images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
+			images: [
+				{
+					url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+					width: 1200,
+					height: 630,
+					alt: 'Notes',
+				},
+			],
 		},
 	};
 }
