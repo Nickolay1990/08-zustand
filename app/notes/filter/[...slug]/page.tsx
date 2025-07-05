@@ -2,12 +2,13 @@ import { fetchNotes } from '@/lib/api';
 import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import NotesClient from './Notes.client';
 import { Note } from '@/types/note';
+import { Metadata } from 'next';
 
 type NotesProps = {
 	params: Promise<{ slug: string[] }>;
 };
 
-export async function generateMetadata({ params }: NotesProps) {
+export async function generateMetadata({ params }: NotesProps): Promise<Metadata> {
 	const { slug } = await params;
 
 	return {
@@ -16,8 +17,8 @@ export async function generateMetadata({ params }: NotesProps) {
 		openGraph: {
 			title: slug[0] === 'all' ? 'All notes' : slug[0],
 			description: `This page contains notes from the category ${slug[0] === 'all' ? 'All notes' : slug[0]}`,
-			url: `https://07-routing-nextjs-bice.vercel.app/notes/filter/${slug[0]}`,
-			images: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+			url: `https://08-zustand-beige.vercel.app/notes/filter/${slug[0]}`,
+			images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
 		},
 	};
 }
